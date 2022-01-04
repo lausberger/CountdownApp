@@ -1,2 +1,45 @@
-# CountdownApp
-A basic countdown timer app that allows users to create, edit, and delete countdown timers to any specified date and time
+# Event Countdown App (iOS)
+Created by Lucas Ausberger
+
+## About This Project
+
+* Created: January 4, 2021
+* Last Updated: January 4, 2021
+* Verison Number: 1.0
+* Dependencies: iOS 15.2, iPhone 8 and above
+
+### Description
+
+A basic countdown app that allows the user to create, edit, and delete events. Each event contains a live countdown timer to a specified date and time.
+
+## FAQs
+
+### How do I create an event?
+
+To create an event, click the blue "plus" button in the upper right corner of the main page. You will then be prompted to enter the following pieces of information:
+
+* Name: A (200 character or less) name for the event. Defaults to "Event" if none provided.
+* Time: If "All Day" is unticked, allows the user to select a specific time. Otherwise, defaults to 12:00 AM on the given date.
+* Date: Allows the user to pick any month and day between the years 1 and 10,000. Defaults to the current date.
+
+Once finished, click the "Save" button in the upper left corner of the editor to save the event, or "Cancel" to cancel.
+
+Note: Dates that have already passed will be considered to have 0 seconds remaining.
+
+### How do I edit an event?
+
+An event can be edited either by performing a rightward swipe gesture within the Events list and selecting the grey "pencil" icon, or by selecting the blue "pencil and paper" icon in the upper right corner of an event's viewing page. Once within the editor, any of the event's fields may be altered, but changes will only be written after the editor's "Save" button is pressed.
+
+### How do I delete an event?
+
+To delete an event, perform a rightward swipe gesture within the Events list. Then, select the red "trash" icon. This will delete the specified event and commit the change to memory. As such, this action cannot be undone!
+
+## Future Changes
+
+* Notifications once a timer hits zero 
+* A confirmation popup that appears before an event is deleted
+* An "About" and "Preferences" menu
+* An archive of past events that can be viewed within a separate screen
+* The option to add pictures and/or notes to an event
+* Different sorting options within the Events list
+

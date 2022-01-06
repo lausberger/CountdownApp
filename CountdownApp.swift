@@ -19,9 +19,22 @@
 //    - Not known to affect functionality at this time
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct CountdownApp: App {
+    
+    init() {
+        UNUserNotificationCenter.current()
+            .requestAuthorization(
+                options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("Notification request successful")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     var body: some Scene {
         WindowGroup {

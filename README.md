@@ -4,13 +4,13 @@ Created by Lucas Ausberger
 ## About This Project
 
 * Created: January 4, 2021
-* Last Updated: January 4, 2021
-* Verison Number: 1.0
+* Last Updated: January 5, 2021
+* Verison Number: 1.1
 * Dependencies: iOS 15.2, iPhone 8 and above
 
 ### Description
 
-A basic countdown app that allows the user to create, edit, and delete events. Each event contains a live countdown timer to a specified date and time.
+A basic countdown app that allows the user to create, edit, and delete events. Each event contains a live countdown timer to a specified date and time. If the user allows notifications, events will notify the user upon completion.
 
 ## FAQs
 
@@ -32,14 +32,28 @@ An event can be edited either by performing a rightward swipe gesture within the
 
 ### How do I delete an event?
 
-To delete an event, perform a rightward swipe gesture within the Events list. Then, select the red "trash" icon. This will delete the specified event and commit the change to memory. As such, this action cannot be undone!
+To delete an event, perform a rightward swipe gesture within the Events list. Then, select the red "trash" icon. You will then be prompted to either confirm or cancel this decision. Please note that event deletions cannot be undone.
+
+## Changelog
+
+### Update Version 1.1 (January 5, 2021)
+
+#### Notification Support
+
+If the user has chosen to allow notifications, all newly created or edited events will automatically schedule a local notification for the specified time and date. In the case of an all-day event, a notification is scheduled for 8 AM on the day of the event. Deleted events will have their notifications cancelled.
+
+#### Event Deletion Confirmation
+
+Now, when the delete button for an event is pressed, a popup window will open that asks the user to either "Confirm" or "Cancel".
 
 ## Future Changes
 
-* Notifications once a timer hits zero 
-* A confirmation popup that appears before an event is deleted
+* [DONE] Notifications once a timer hits zero
+* [DONE] A confirmation popup that appears before an event is deleted
 * An "About" and "Preferences" menu
 * An archive of past events that can be viewed within a separate screen
 * The option to add pictures and/or notes to an event
 * Different sorting options within the Events list
+* The option to not be notified or to have repeat reminders for an event
+* The option to choose when to be notified for all-day events
 

@@ -18,14 +18,17 @@ struct EventListView: View {
         ) var events: FetchedResults<Event>
     
     @Binding var editing: Bool
+    @Binding var deleting: Bool
     @Binding var eventHolder: EventToEdit
     
+    /*
     func deleteEvent(event: Event) {
         let event = DataController.shared.getEventById(id: event.objectID)
         if let event = event {
             DataController.shared.deleteEvent(event)
         }
     }
+     */
     
     var body: some View {
         List {
@@ -36,7 +39,8 @@ struct EventListView: View {
                     EventRow(e: event, preview: event.leadingInfo())
                 }.swipeActions(edge: .leading, allowsFullSwipe: false) {
                     Button(role: .destructive, action: {
-                        deleteEvent(event: event)
+                        eventHolder.get = event
+                        deleting = true
                     }) {
                         Label("Delete", systemImage: "trash")
                     }
@@ -49,7 +53,7 @@ struct EventListView: View {
                     }
                 }
             }
-            //.onDelete(perform: deleteEvent(event: ))
+            //.onDelete(perform:)
             // onDelete uses indices for deletion, not event objects!
         }
         .listStyle(.plain)
@@ -72,9 +76,16 @@ struct EventRow: View {
             .frame(width: 65)
             .padding(.trailing, 5)
             VStack(alignment: .leading) {
-                Text(e.name ?? "ERROR: Failed to load name")
-                    .font(.system(size: 20, weight: .bold))
-                    .padding(.bottom, 1)
+                if e.timeUntil() < 0 {
+                    Text(e.name ?? "ERROR: Failed to load name")
+                        .font(.system(size: 20, weight: .bold))
+                        .padding(.bottom, 1)
+                        .foregroundColor(Color.red)
+                } else {
+                    Text(e.name ?? "ERROR: Failed to load name")
+                        .font(.system(size: 20, weight: .bold))
+                        .padding(.bottom, 1)
+                }
                 if (e.viewTime() != nil) {
                     Text("\(e.viewDate()) at \(e.viewTime()!)")
                         .font(.system(size: 14))

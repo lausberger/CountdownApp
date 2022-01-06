@@ -34,6 +34,9 @@ struct EventEditor: View {
                             Text("Cancel")
                         }
                         Button(action: {
+                            let previousNotification: Bool =
+                                event.timeUntil() > 0 ?
+                                    true : false
                             event.name = newName
                             if newAllDay {
                                 event.date = newDate.changeTime(
@@ -48,6 +51,20 @@ struct EventEditor: View {
                             } catch {
                                 print("Error when saving to CoreData")
                             }
+                            
+                            let noNewNotification: Bool =
+                                event.timeUntil() <= 0 ?
+                                    true : false
+                            var deleteOld: Bool
+                            if previousNotification && noNewNotification {
+                                deleteOld = true
+                            } else {
+                                deleteOld = false
+                            }
+                            
+                            let _ = NotificationHandler(
+                                event: event, remove: deleteOld)
+                            
                             editing = false
                             event.recentlyEdited = true
                         }) {

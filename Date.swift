@@ -23,6 +23,7 @@ extension Date {
         return time
     }
     
+    // b represents whether a date is an "all day" date or not
     public func formattedString(time: Date, b: Bool) -> String {
         let fmtr = DateFormatter()
         fmtr.dateStyle = .full

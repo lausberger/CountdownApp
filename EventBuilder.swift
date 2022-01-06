@@ -53,8 +53,11 @@ struct EventBuilder: View {
                             } catch {
                                 print("Error when saving to CoreData")
                             }
-                            active = false
                             
+                            let _ = NotificationHandler(
+                                event: event, remove: false)
+                            
+                            active = false
                         }) {
                             Text("Save")
                         }

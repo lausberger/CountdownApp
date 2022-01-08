@@ -4,9 +4,9 @@ Created by Lucas Ausberger
 ## About This Project
 
 * Created: January 4, 2021
-* Last Updated: January 5, 2021
-* Verison Number: 1.1
-* Dependencies: iOS 15.2, iPhone 8 and above
+* Last Updated: January 8, 2021
+* Current Verison: 1.1.1
+* Dependencies: iOS 15.2, tested on iPhone 8 and newer
 
 ### Description
 
@@ -35,6 +35,13 @@ An event can be edited either by performing a rightward swipe gesture within the
 To delete an event, perform a rightward swipe gesture within the Events list. Then, select the red "trash" icon. You will then be prompted to either confirm or cancel this decision. Please note that event deletions cannot be undone.
 
 ## Changelog
+
+### Hotfix 1.1.1 (January 8, 2021)
+
+#### Fixes:
+
+* Events edited from within the list view now properly update their countdown previews
+* All-day events correctly send a notification at 8 AM instead of 12:08 AM
 
 ### Update Version 1.1 (January 5, 2021)
 

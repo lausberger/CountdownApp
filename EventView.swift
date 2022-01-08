@@ -15,13 +15,13 @@ import SwiftUI
 struct EventView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var editing: Bool
-    @State var e: Event
+    @ObservedObject var e: Event
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 VStack {
-                    EventInfo(event: $e, name: $e.name, date: $e.date)
+                    EventInfo(event: e, name: $e.name, date: $e.date)
                     Spacer()
                     CountdownDisplay(event: e, arr: e.generateCountdownInfo())
                 }
@@ -63,7 +63,7 @@ struct EventView: View {
 }
 
 struct EventInfo: View {
-    @Binding var event: Event
+    @ObservedObject var event: Event
     @Binding var name: String?
     @Binding var date: Date?
     
@@ -90,7 +90,7 @@ struct EventInfo: View {
 }
 
 struct CountdownDisplay: View {
-    @State var event: Event
+    @ObservedObject var event: Event
     @State var arr: [(String, Int)]
     @State private var timer: Timer?
     

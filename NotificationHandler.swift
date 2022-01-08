@@ -26,7 +26,7 @@ class NotificationHandler {
             var trigger: UNTimeIntervalNotificationTrigger
             if event.isAllDay {
                 let allDayNotificationTime =
-                    event.date!.midnight + (60 * 8) - Date()
+                    event.date!.midnight + (60 * 60 * 8) - Date()
                 trigger = UNTimeIntervalNotificationTrigger(
                     timeInterval: allDayNotificationTime,
                     repeats: false)

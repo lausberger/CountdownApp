@@ -11,8 +11,11 @@ import CoreData
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "Countdown")
     static let shared = DataController()
+    // a hacky solution to allow app-wide updating of countdown fields
+    @Published var lastEditedEventsDate: Date
     
     init() {
+        lastEditedEventsDate = Date()
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Core data failed to load: \(error.localizedDescription)")

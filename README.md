@@ -40,7 +40,8 @@ To delete an event, perform a rightward swipe gesture within the Events list. Th
 
 #### Fixes:
 
-* Events edited from within the list view now properly update their countdown previews
+* Events edited from within the list view now properly update their countdown previews when starting as an expired event
+* Events edited within the detailed view now properly update their countdown when starting as an expired event
 * All-day events correctly send a notification at 8 AM instead of 12:08 AM
 
 ### Update Version 1.1 (January 5, 2021)

@@ -105,7 +105,7 @@ struct CountdownDisplay: View {
                 }
             }
         }
-        .onChange(of: event.recentlyEdited) { _ in
+        .onChange(of: DataController.shared.lastEditedEventsDate) { _ in
             if event.recentlyEdited == true { // can onChange be recursive?
                 arr = event.generateCountdownInfo()
                 event.recentlyEdited = false

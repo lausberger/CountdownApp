@@ -11,24 +11,13 @@
 import SwiftUI
 
 struct EventListView: View {
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(
         entity: Event.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Event.date, ascending: true)]
         ) var events: FetchedResults<Event>
-    
     @Binding var editing: Bool
     @Binding var deleting: Bool
     @Binding var eventHolder: EventToEdit
-    
-    /*
-    func deleteEvent(event: Event) {
-        let event = DataController.shared.getEventById(id: event.objectID)
-        if let event = event {
-            DataController.shared.deleteEvent(event)
-        }
-    }
-     */
     
     var body: some View {
         List {
@@ -61,7 +50,7 @@ struct EventListView: View {
 }
 
 struct EventRow: View {
-    @State var e: Event
+    @ObservedObject var e: Event
     @State var preview: [(String, Int)]
     @State private var timer: Timer?
     
@@ -76,7 +65,7 @@ struct EventRow: View {
             .frame(width: 65)
             .padding(.trailing, 5)
             VStack(alignment: .leading) {
-                if e.timeUntil() < 0 {
+                if e.timeUntil() < 0 { // show completed events as red
                     Text(e.name ?? "ERROR: Failed to load name")
                         .font(.system(size: 20, weight: .bold))
                         .padding(.bottom, 1)
@@ -97,31 +86,57 @@ struct EventRow: View {
             .padding(.leading, 5)
             .frame(height: 90)
         }
-        .onAppear {
-            preview = e.leadingInfo()
-            if e.timeUntil() > 0 {
-                if preview.count > 1 {
-                    timer =
-                        Timer.scheduledTimer(
+        .onChange(of: DataController.shared.lastEditedEventsDate) { _ in
+            if e.recentlyEdited == true {
+                preview = e.leadingInfo()
+                if e.timeUntil() > 0 {
+                    if preview.count > 1 { // schedule based on next value
+                        timer = Timer.scheduledTimer(
                             withTimeInterval:
                                 Double(Date.convertInfoToSeconds(
                                     info: preview.last!)),
                             repeats: true) { _ in
-                        preview = e.leadingInfo()
-                        if e.timeUntil() <= 0 {
-                            timer?.invalidate()
-                        }
-                    }
-                } else { // when only seconds remain in countdown
-                    timer =
-                        Timer.scheduledTimer(
+                                preview = e.leadingInfo()
+                                if e.timeUntil() <= 0 {
+                                    timer?.invalidate()
+                                }
+                            }
+                    } else { // when only seconds remain in countdown
+                        timer = Timer.scheduledTimer(
                             withTimeInterval: 1,
                             repeats: true) { _ in
-                        preview = e.leadingInfo()
-                        if e.timeUntil() <= 0 {
-                            timer?.invalidate()
-                        }
+                                preview = e.leadingInfo()
+                                if e.timeUntil() <= 0 {
+                                    timer?.invalidate()
+                                }
+                            }
                     }
+                }
+            }
+        }
+        .onAppear {
+            preview = e.leadingInfo()
+            if e.timeUntil() > 0 {
+                if preview.count > 1 {
+                    timer = Timer.scheduledTimer(
+                        withTimeInterval:
+                            Double(Date.convertInfoToSeconds(
+                                info: preview.last!)),
+                        repeats: true) { _ in
+                            preview = e.leadingInfo()
+                            if e.timeUntil() <= 0 {
+                                timer?.invalidate()
+                            }
+                        }
+                } else { // when only seconds remain in countdown
+                    timer = Timer.scheduledTimer(
+                        withTimeInterval: 1,
+                        repeats: true) { _ in
+                            preview = e.leadingInfo()
+                            if e.timeUntil() <= 0 {
+                                timer?.invalidate()
+                            }
+                        }
                 }
             }
         }

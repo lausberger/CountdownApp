@@ -10,7 +10,7 @@ import SwiftUI
 struct EventEditor: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
-    @State var event: Event
+    @ObservedObject var event: Event
     @State var newDate: Date
     @State var newTime: Date
     @State var newName: String
@@ -48,6 +48,7 @@ struct EventEditor: View {
                             event.isAllDay = newAllDay
                             do {
                                 try moc.save()
+                                DataController.shared.lastEditedEventsDate = event.date!
                             } catch {
                                 print("Error when saving to CoreData")
                             }
